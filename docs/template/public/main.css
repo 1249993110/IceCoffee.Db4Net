@@ -1,0 +1,19 @@
+/* Checkout https://getbootstrap.com/docs/5.3/customize/color/ for more customization options */
+.nav-item.dropdown .dropdown-menu.show {
+    width: 20rem;
+}
+
+#logo {
+    width: 40px;
+    margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-item.dropdown .dropdown-menu.show .nav-item {
+        margin-left: 0.5rem;
+    }
+}
+
+.navbar .container-xxl {
+    flex-wrap: wrap !important;
+}

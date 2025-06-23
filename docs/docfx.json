@@ -1,0 +1,63 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "../src/IceCoffee.Db4Net",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "api/IceCoffee.Db4Net"
+    },
+	{
+      "src": [
+		{
+          "src": "../src/IceCoffee.Db4Net.DependencyInjection",
+          "files": [
+            "**/*.csproj"
+          ]
+        }
+      ],
+      "dest": "api/IceCoffee.Db4Net.DependencyInjection"
+    }
+  ],
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "images/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+	  "modern",
+	  "template"
+    ],
+    "globalMetadata": {
+      "_appName": "Db4Net",
+      "_appTitle": "Db4Net",
+      "_enableSearch": true,
+	  "_gitUrlPattern": "github",
+      "_gitContribute": {
+		"repo": "https://github.com/1249993110/IceCoffee.Db4Net",
+        "branch": "main"
+      },
+      "pdf": true
+    }
+  }
+}
