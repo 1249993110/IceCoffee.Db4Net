@@ -15,4 +15,4 @@ Refer to the [Quick Start](https://dotnet.db4.dev/) guide for more details.
 If you like the library, use it, share it, and give it a ⭐️. For any suggestions, feature requests, or issues feel free to create an [issue](https://github.com/1249993110/IceCoffee.Db4Net/issues) to help improve the library.
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/1249993110/IceCoffee.Db4Net/blob/main/LICENSE.md) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/1249993110/IceCoffee.Db4Net/blob/main/LICENSE) file for details.
