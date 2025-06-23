@@ -85,7 +85,7 @@ INSERT INTO [foo] ([Name], [Age], [created_at]) VALUES (@Name, @Age, @CreatedAt)
 
 ### 5. Get an entity by ID
 ``` csharp
-Db.Query<Foo>(1).GetSingle();
+var foo = Db.Query<Foo>(1).GetSingleOrDefault();
 ```
 
 The generated SQL will be:

@@ -12,8 +12,9 @@
                     return new SqliteAdapter();
                 case DatabaseProvider.DaMeng:
                     return new DaMengAdapter();
-                case DatabaseProvider.PostgreSQL:
                 case DatabaseProvider.MySQL:
+                    return new MySqlAdapter();
+                case DatabaseProvider.PostgreSQL:
                 case DatabaseProvider.Undefined:
                 default:
                     throw new NotSupportedException($"Database type '{databaseType}' is not supported.");
