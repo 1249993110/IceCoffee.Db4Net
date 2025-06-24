@@ -106,16 +106,20 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
                 }
             }
         }
-        internal static string GetUniqueConstraint(ISqlAdapter sqlAdapter)
+        internal string GetUniqueKeys()
+        {
+            return string.Join(", ", UniqueKeys.Select(i => TryQuote(_propToFieldMap[i])));
+        }
+        internal string GetUniqueConstraint()
         {
             string unique;
             if (UniqueKeys.Count == 1)
             {
-                unique = $"{sqlAdapter.Quote(_propToFieldMap[UniqueKeys[0]])} = {sqlAdapter.Parameter(UniqueKeys[0])}";
+                unique = $"{TryQuote(_propToFieldMap[UniqueKeys[0]])} = {SqlAdapter.Parameter(UniqueKeys[0])}";
             }
             else
             {
-                unique = string.Join(" AND ", UniqueKeys.Select(i => $"{sqlAdapter.Quote(_propToFieldMap[i])} = {sqlAdapter.Parameter(i)}"));
+                unique = string.Join(" AND ", UniqueKeys.Select(i => $"{TryQuote(_propToFieldMap[i])} = {SqlAdapter.Parameter(i)}"));
             }
             return unique;
         }

@@ -16,7 +16,7 @@
 		<PackageProjectUrl>https://github.com/1249993110/IceCoffee.Db4Net</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<RepositoryUrl>https://github.com/1249993110/IceCoffee.Db4Net</RepositoryUrl>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 	
 	<ItemGroup>

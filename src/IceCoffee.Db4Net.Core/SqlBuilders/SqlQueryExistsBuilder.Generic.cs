@@ -11,7 +11,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
 
         public SqlQueryExistsBuilder(ISqlAdapter sqlAdapter, object id) : this(sqlAdapter)
         {
-            string idColumn = sqlAdapter.Quote(SqlBuilder<TEntity>.GetFieldNameByProperty(SqlBuilder<TEntity>.GetSingleUniqueKey()));
+            string idColumn = TryQuote(SqlBuilder<TEntity>.GetFieldNameByProperty(SqlBuilder<TEntity>.GetSingleUniqueKey()));
             string name = ParameterBuilder.AddNamedParam(id);
             WhereRaw($"{idColumn} = {name}");
         }

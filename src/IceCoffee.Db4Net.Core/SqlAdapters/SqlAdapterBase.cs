@@ -34,9 +34,9 @@
 
         public abstract string InsertReturningIdCommand();
 
-        public abstract string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint);
+        public abstract string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint, string uniqueKeys);
 
-        public abstract string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause);
+        public abstract string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause, string uniqueKeys);
 
         public virtual string UpdateCommand(string tableName, string updateClause, string whereConditions)
         {

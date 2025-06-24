@@ -93,5 +93,27 @@ namespace IceCoffee.Db4Net.UnitTest
             Assert.Equal(entity.Id, updatedEntity.Id);
             Assert.Equal(entity.Name, updatedEntity.Name);
         }
+
+        [Fact]
+        public async Task InsertSpecificColumns_ShouldInsertOnlySpecifiedColumns()
+        {
+            var fixture = new Fixture();
+            var entity = fixture.Create<Country>();
+
+            // Insert only Name column
+            int affectedRows = await Db.Insert<Country>()
+                .Set(i => i.Id, entity.Id)
+                .Set(i => i.Name, entity.Name)
+                .ExecuteAsync();
+
+            Assert.Equal(1, affectedRows);
+
+            // Verify that the entity was inserted with only Name
+            var insertedEntity = await Db.Query<Country>(entity.Id).GetSingleAsync();
+
+            Assert.NotNull(insertedEntity);
+            Assert.Equal(entity.Name, insertedEntity.Name);
+            Assert.Equal(0, insertedEntity.Sort); // Sort should be 0 since it was not set
+        }
     }
 }

@@ -27,12 +27,12 @@
             return "; SELECT LAST_INSERT_ID()";
         }
 
-        public override string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint)
+        public override string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint, string uniqueKeys)
         {
             return $"INSERT OR IGNORE INTO {tableName} ({columns}) VALUES ({parameters})";
         }
 
-        public override string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause)
+        public override string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause, string uniqueKeys)
         {
             return $"REPLACE INTO {tableName} ({columns}) VALUES ({parameters})";
         }

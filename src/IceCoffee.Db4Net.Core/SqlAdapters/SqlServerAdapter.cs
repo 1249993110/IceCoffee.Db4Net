@@ -32,12 +32,12 @@
             return "; SELECT SCOPE_IDENTITY()";
         }
 
-        public override string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint)
+        public override string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint, string uniqueKeys)
         {
             return $"INSERT INTO {tableName} ({columns}) SELECT {parameters} WHERE NOT EXISTS (SELECT 1 FROM {tableName} WHERE {uniqueConstraint})";
         }
 
-        public override string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause)
+        public override string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause, string uniqueKeys)
         {
             return $"UPDATE {tableName} SET {updateClause} WHERE {uniqueConstraint}; IF @@ROWCOUNT=0 BEGIN {InsertCommand(tableName, columns, parameters)} END";
         }

@@ -9,5 +9,7 @@ namespace IceCoffee.Db4Net.UnitTest.Entities
         public int Id { get; set; }
 
         public required string Name { get; set; }
+
+        public int Sort { get; set; }
     }
 }

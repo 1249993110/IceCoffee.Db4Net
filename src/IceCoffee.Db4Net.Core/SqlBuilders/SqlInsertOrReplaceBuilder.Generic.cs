@@ -18,7 +18,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
             (string columns, string parameters) = DefaultInsertClause;
             return new SqlResult()
             {
-                Sql = SqlAdapter.InsertReplaceCommand(_tableName ?? DefaultTableName, columns, parameters, GetUniqueConstraint(SqlAdapter), DefaultUpdateClause),
+                Sql = SqlAdapter.InsertReplaceCommand(_tableName ?? DefaultTableName, columns, parameters, GetUniqueConstraint(), DefaultUpdateClause, GetUniqueKeys()),
                 NamedParameters = ParameterBuilder.NamedParameters,
                 DynamicParameters = ParameterBuilder.DynamicParameters,
                 Entities = ParameterBuilder.Entities,

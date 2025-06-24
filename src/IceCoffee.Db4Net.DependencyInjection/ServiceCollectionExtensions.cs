@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace IceCoffee.Db4Net.DependencyInjection
 {
@@ -30,13 +31,13 @@ namespace IceCoffee.Db4Net.DependencyInjection
         /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddDbConnection<TRepository>(this IServiceCollection services, string databaseName, Action<DbConnectionOptions> configure) where TRepository : Repository
         {
-            services.AddSingleton((sp) => ActivatorUtilities.CreateInstance<TRepository>(sp, new object[] { databaseName }));
-            services.AddOptions<DbConnectionOptions>(databaseName)
-                .Configure(configure)
-                .PostConfigure<TRepository>((options, resp) =>
-                {
-                    Db.Register(resp.DatabaseName, options);
-                });
+            services.AddSingleton((sp) =>
+            {
+                var options = sp.GetRequiredService<IOptionsMonitor<DbConnectionOptions>>().Get(databaseName);
+                Db.Register(databaseName, options);
+                return ActivatorUtilities.CreateInstance<TRepository>(sp, new object[] { databaseName });
+            });
+            services.AddOptions<DbConnectionOptions>(databaseName).Configure(configure);
             return services;
         }
 
@@ -62,13 +63,13 @@ namespace IceCoffee.Db4Net.DependencyInjection
         /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddDbConnection<TRepository>(this IServiceCollection services, string databaseName, IConfiguration configuration) where TRepository : Repository
         {
-            services.AddSingleton((sp) => ActivatorUtilities.CreateInstance<TRepository>(sp, new object[] { databaseName }));
-            services.AddOptions<DbConnectionOptions>(databaseName)
-                .Bind(configuration)
-                .PostConfigure<TRepository>((options, resp) =>
-                {
-                    Db.Register(resp.DatabaseName, options);
-                });
+            services.AddSingleton((sp) =>
+            {
+                var options = sp.GetRequiredService<IOptionsMonitor<DbConnectionOptions>>().Get(databaseName);
+                Db.Register(databaseName, options);
+                return ActivatorUtilities.CreateInstance<TRepository>(sp, new object[] { databaseName });
+            });
+            services.AddOptions<DbConnectionOptions>(databaseName).Bind(configuration);
             return services;
         }
 
@@ -94,13 +95,13 @@ namespace IceCoffee.Db4Net.DependencyInjection
         /// <returns>The updated service collection.</returns>
         public static IServiceCollection AddDbConnection<TRepository>(this IServiceCollection services, string databaseName, string configurationSectionPath) where TRepository : Repository
         {
-            services.AddSingleton((sp) => ActivatorUtilities.CreateInstance<TRepository>(sp, new object[] { databaseName }));
-            services.AddOptions<DbConnectionOptions>(databaseName)
-                .BindConfiguration(configurationSectionPath)
-                .PostConfigure<TRepository>((options, resp) =>
-                {
-                    Db.Register(resp.DatabaseName, options);
-                });
+            services.AddSingleton((sp) =>
+            {
+                var options = sp.GetRequiredService<IOptionsMonitor<DbConnectionOptions>>().Get(databaseName);
+                Db.Register(databaseName, options);
+                return ActivatorUtilities.CreateInstance<TRepository>(sp, new object[] { databaseName });
+            });
+            services.AddOptions<DbConnectionOptions>(databaseName).BindConfiguration(configurationSectionPath);
             return services;
         }
     }

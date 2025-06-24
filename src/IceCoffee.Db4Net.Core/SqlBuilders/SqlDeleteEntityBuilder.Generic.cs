@@ -15,7 +15,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
 
         protected override SqlResult GetSqlResult()
         {
-            string whereConditions = "WHERE " + GetUniqueConstraint(SqlAdapter);
+            string whereConditions = "WHERE " + GetUniqueConstraint();
             return new SqlResult()
             {
                 Sql = SqlAdapter.DeleteCommand(_tableName ?? DefaultTableName, whereConditions),

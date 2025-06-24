@@ -6,6 +6,20 @@ namespace IceCoffee.Db4Net.UnitTest
     public class DeleteTests : TestFixtureBase
     {
         [Fact]
+        public async Task Delete_SingleEntityById_ShouldSucceed()
+        {
+            var entity = await InsertTestData<Country>();
+            
+            var affectedRows = await Db.Delete<Country>(entity.Id).ExecuteAsync();
+            
+            Assert.Equal(1, affectedRows);
+            
+            var deletedEntity = await Db.Query<Country>(entity.Id).GetSingleOrDefaultAsync();
+            
+            Assert.Null(deletedEntity);
+        }
+
+        [Fact]
         public async Task Delete_SingleEntity_ShouldSucceed()
         {
             var entity = await InsertTestData<Country>();

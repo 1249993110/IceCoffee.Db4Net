@@ -17,6 +17,7 @@ using (var dbConnection = Db.CreateDbConnection())
         catch (Exception)
         {
             transaction.Rollback();
+            throw;
         }
     }
 }
@@ -39,6 +40,7 @@ using (var dbConnection = Db.CreateDbConnection())
         catch (Exception)
         {
             await transaction.RollbackAsync();
+            throw;
         }
     }
 }

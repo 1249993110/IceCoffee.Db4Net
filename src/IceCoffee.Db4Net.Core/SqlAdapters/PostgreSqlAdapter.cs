@@ -1,6 +1,6 @@
 ﻿namespace IceCoffee.Db4Net.Core.SqlAdapters
 {
-    internal class SqliteAdapter : SqlAdapterBase
+    internal class PostgreSqlAdapter : SqlAdapterBase
     {
         public override string PagingCommand(int pageIndex, int pageSize)
         {
@@ -14,7 +14,7 @@
             {
                 return Quote(name.Substring(0, index)) + "." + Quote(name.Substring(index));
             }
-            return $"[{name}]";
+            return $"\"{name}\"";
         }
 
         public override string Parameter(string parameterName)
@@ -24,22 +24,27 @@
 
         public override string InsertReturningIdCommand()
         {
-            return "; SELECT LAST_INSERT_ROWID()";
+            return " RETURNING id";
         }
 
         public override string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint, string uniqueKeys)
         {
-            return $"INSERT OR IGNORE INTO {tableName} ({columns}) VALUES ({parameters})";
+            return $"INSERT INTO {tableName} ({columns}) VALUES ({parameters}) ON CONFLICT ({uniqueKeys}) DO NOTHING";
         }
 
         public override string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause, string uniqueKeys)
         {
-            return $"REPLACE INTO {tableName} ({columns}) VALUES ({parameters})";
+            return $"INSERT INTO {tableName} ({columns}) VALUES ({parameters}) ON CONFLICT ({uniqueKeys}) DO UPDATE SET {updateClause}";
         }
 
         public override string Like(string parameterPlaceholder)
         {
-            return $"LIKE '%'||{parameterPlaceholder}||'%'";
+            return "I" + base.Like(parameterPlaceholder);
+        }
+
+        public override string In(string parameterPlaceholder)
+        {
+            return $"= ANY({parameterPlaceholder})";
         }
     }
 }

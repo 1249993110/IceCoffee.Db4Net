@@ -24,7 +24,7 @@ Install-Package Microsoft.Data.SqlClient
 
 * **SQLite**
 ```powershell
-Install-Package  Microsoft.Data.SQLite
+Install-Package Microsoft.Data.SQLite
 ```
 
 * **PostgreSQL**
@@ -34,7 +34,7 @@ Install-Package Npgsql
 
 * **MySQL**
 ```powershell
-Install-Package  MySql.Data
+Install-Package MySql.Data
 ```
 
 * **DaMeng**

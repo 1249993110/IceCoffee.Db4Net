@@ -51,7 +51,8 @@ namespace IceCoffee.Db4Net.UnitTest
             _connection.Execute(@"
                 CREATE TABLE country (
                     Code INTEGER NOT NULL PRIMARY KEY,
-                    Name TEXT NOT NULL
+                    Name TEXT NOT NULL,
+                    Sort INTEGER NULL
                 )");
         }
 

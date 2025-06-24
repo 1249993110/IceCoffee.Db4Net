@@ -1,6 +1,5 @@
 ﻿using IceCoffee.Db4Net.Core.PropertyDefinitions;
 using IceCoffee.Db4Net.Core.SqlAdapters;
-using System.Collections;
 using System.Linq.Expressions;
 
 namespace IceCoffee.Db4Net.Core.SqlBuilders
@@ -13,14 +12,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
 
         internal SqlQueryBuilder(ISqlAdapter sqlAdapter, object id) : base(sqlAdapter)
         {
-            if(id is IEnumerable ids && id is not string)
-            {
-                WhereIn(GetSingleUniqueKey(), ids);
-            }
-            else
-            {
-                WhereEq(GetSingleUniqueKey(), id);
-            }
+            WhereEq(GetSingleUniqueKey(), id);
         }
     }
 

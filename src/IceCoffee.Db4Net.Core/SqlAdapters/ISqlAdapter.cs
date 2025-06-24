@@ -11,8 +11,8 @@
         string InsertCommand(string tableName, string columns, string parameters);
 
         string InsertReturningIdCommand();
-        string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint);
-        string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause);
+        string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint, string uniqueKeys);
+        string InsertReplaceCommand(string tableName, string columns, string parameters, string uniqueConstraint, string updateClause, string uniqueKeys);
 
         string UpdateCommand(string tableName, string updateClause, string whereConditions);
 

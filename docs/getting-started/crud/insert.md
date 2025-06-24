@@ -1,36 +1,58 @@
 # Insert
 
-### 1. Insert single
+### Insert single
 ``` csharp
-int affectedRows = Db.Insert(entity).Execute();
+int affectedRows = Db.Insert(entity)
+    .Execute();
 ```
 
-### 2. Insert multiple
+### Insert multiple
 ``` csharp
-int affectedRows = Db.InsertMany(entities).Execute();
+int affectedRows = Db.InsertMany(entities)
+    .Execute();
 ```
 
-### 3. Insert and get database generated id
+### Insert and get database generated id
 ``` csharp
-int id = Db.InsertAndGetId(entity).Execute<int>();
+int id = Db.InsertAndGetId(entity)
+    .Execute<int>();
 ```
 
-### 4. Insert or ignore single
+### Insert or ignore single
 ``` csharp
-int affectedRows = Db.InsertOrIgnore(entity).Execute();
+int affectedRows = Db.InsertOrIgnore(entity)
+    .Execute();
 ```
 
-### 5. Insert or ignore multiple
+### Insert or ignore multiple
 ``` csharp
-int affectedRows = Db.InsertOrIgnoreMany(entities).Execute();
+int affectedRows = Db.InsertOrIgnoreMany(entities)
+    .Execute();
 ```
 
-### 6. Insert or replace single
+### Insert or replace single
 ``` csharp
-int affectedRows = Db.InsertOrReplace(entity).Execute();
+int affectedRows = Db.InsertOrReplace(entity)
+    .Execute();
 ```
 
-### 7. Insert or replace multiple
+### Insert or replace multiple
 ``` csharp
-int affectedRows = Db.InsertOrReplaceMany(entities).Execute();
+int affectedRows = Db.InsertOrReplaceMany(entities)
+    .Execute();
+```
+
+### Insert specific columns
+``` csharp
+int affectedRows = Db.Insert<EntityClass>()
+    .Set(i => i.Id, entity.Id)
+    .Set(i => i.Name, entity.Name)
+    .Execute();
+```
+
+### Insert single to specific table
+``` csharp
+int affectedRows = Db.Insert(entity)
+    .To(table)
+    .Execute();
 ```
