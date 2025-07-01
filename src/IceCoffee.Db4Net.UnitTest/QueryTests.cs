@@ -1,4 +1,5 @@
-﻿using IceCoffee.Db4Net.Extensions;
+﻿using IceCoffee.Db4Net.Core.SqlBuilders;
+using IceCoffee.Db4Net.Extensions;
 using IceCoffee.Db4Net.UnitTest.Entities;
 
 namespace IceCoffee.Db4Net.UnitTest
@@ -63,7 +64,6 @@ namespace IceCoffee.Db4Net.UnitTest
         public async Task QueryWithWhere_Condition_ShouldReturnFilteredResults()
         {
             var entities = await InsertTestData<Country>(5);
-
             var targetEntity = entities.First();
 
             var results = await Db.Query<Country>()
@@ -72,6 +72,23 @@ namespace IceCoffee.Db4Net.UnitTest
 
             Assert.Single(results);
             Assert.Equal(targetEntity.Id, results.First().Id);
+        }
+
+        [Fact]
+        public async Task QueryWithWhereOr_Condition_ShouldReturnFilteredResults()
+        {
+            var entities = (await InsertTestData<Country>(5)).OrderBy(i => i.Id);
+            var first = entities.First();
+            var last = entities.Last();
+
+            var filter = SqlBuilder<Country>.Filter;
+            var results = await Db.Query<Country>()
+                .WhereOr(filter.Eq(i => i.Id, first.Id), filter.Eq(i => i.Id, last.Id))
+                .OrderBy(i => i.Id)
+                .GetListAsync();
+
+            Assert.Equal(first.Id, results.First().Id);
+            Assert.Equal(last.Id, results.Last().Id);
         }
 
         [Fact]
