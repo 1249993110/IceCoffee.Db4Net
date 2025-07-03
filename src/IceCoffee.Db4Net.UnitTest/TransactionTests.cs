@@ -1,12 +1,6 @@
 ﻿using AutoFixture;
 using IceCoffee.Db4Net.Extensions;
 using IceCoffee.Db4Net.UnitTest.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
 
 namespace IceCoffee.Db4Net.UnitTest
 {
@@ -42,6 +36,30 @@ namespace IceCoffee.Db4Net.UnitTest
             Assert.Null(insertedEntity);
         }
 
+        [Fact]
+        public void Sync_Transaction_UsingUnitOfWork_ShouldCommitFailure()
+        {
+            var fixture = new Fixture();
+            var entity = fixture.Create<Country>();
+
+            try
+            {
+                using (var uow = Db.CreateUnitOfWork())
+                {
+                    Db.Insert(entity).Execute(uow.DbTransaction);
+                    Db.Insert(entity).Execute(uow.DbTransaction);
+                    uow.Commit();
+                }
+            }
+            catch (Exception)
+            {
+            }
+
+            var insertedEntity = Db.Query<Country>(entity.Id).GetSingleOrDefault();
+
+            Assert.Null(insertedEntity);
+        }
+
 #if NETCOREAPP
         [Fact]
         public async Task Async_Transaction_ShouldCommitFailure()
@@ -66,6 +84,30 @@ namespace IceCoffee.Db4Net.UnitTest
                         await transaction.RollbackAsync();
                     }
                 }
+            }
+
+            var insertedEntity = await Db.Query<Country>(entity.Id).GetSingleOrDefaultAsync();
+
+            Assert.Null(insertedEntity);
+        }
+
+        [Fact]
+        public async Task Async_Transaction_UsingUnitOfWork_ShouldCommitFailure()
+        {
+            var fixture = new Fixture();
+            var entity = fixture.Create<Country>();
+
+            try
+            {
+                using (var uow = Db.CreateUnitOfWork())
+                {
+                    await Db.Insert(entity).ExecuteAsync(uow.DbTransaction);
+                    await Db.Insert(entity).ExecuteAsync(uow.DbTransaction);
+                    await uow.CommitAsync();
+                }
+            }
+            catch (Exception)
+            {
             }
 
             var insertedEntity = await Db.Query<Country>(entity.Id).GetSingleOrDefaultAsync();

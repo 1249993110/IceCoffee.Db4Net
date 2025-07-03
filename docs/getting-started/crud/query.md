@@ -47,9 +47,18 @@ var entities = Db.Query<EntityClass>()
     .GetList();
 ```
 
-### 9. Query from specific table
+### Query from specific table
 ``` csharp
 var entities = Db.Query<EntityClass>()
     .From(table)
     .GetList();
+```
+
+### Query with where or condition
+``` csharp
+var filter = SqlBuilder<EntityClass>.Filter;
+var results = await Db.Query<EntityClass>()
+    .WhereOr(filter.Eq(i => i.Id, first.Id), filter.Eq(i => i.Id, last.Id))
+    .OrderBy(i => i.Id)
+    .GetListAsync();
 ```

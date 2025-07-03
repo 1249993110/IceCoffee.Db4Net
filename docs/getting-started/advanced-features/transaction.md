@@ -1,6 +1,30 @@
 # Transaction
 
-## Synchronous
+## Use unit of work
+
+### Synchronous
+``` csharp
+using (var uow = Db.CreateUnitOfWork())
+{
+    Db.Insert(entity).Execute(uow.DbTransaction);
+    Db.Insert(entity).Execute(uow.DbTransaction);
+    uow.Commit();
+}
+```
+
+### Asynchronous
+``` csharp
+using (var uow = Db.CreateUnitOfWork())
+{
+    await Db.Insert(entity).ExecuteAsync(uow.DbTransaction);
+    await Db.Insert(entity).ExecuteAsync(uow.DbTransaction);
+    await uow.CommitAsync();
+}
+```
+
+## Use vanilla
+
+### Synchronous
 ``` csharp
 using (var dbConnection = Db.CreateDbConnection())
 {
@@ -23,7 +47,7 @@ using (var dbConnection = Db.CreateDbConnection())
 }
 ```
 
-## Asynchronous
+### Asynchronous
 ``` csharp
 using (var dbConnection = Db.CreateDbConnection())
 {

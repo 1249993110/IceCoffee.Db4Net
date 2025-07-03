@@ -227,6 +227,36 @@ namespace IceCoffee.Db4Net
         }
 
         /// <summary>
+        /// Creates a new instance of the <see cref="UnitOfWork"/> class, initialized with a database connection.
+        /// </summary>
+        /// <remarks>Use this method to create a unit of work for managing database operations. The
+        /// connection is established based on the provided database name or defaults to the application's primary
+        /// database if no name is specified.</remarks>
+        /// <param name="databaseName">The name of the database to connect to. If not specified or an empty string is provided, the default
+        /// database will be used.</param>
+        /// <returns>A new <see cref="UnitOfWork"/> instance configured with the specified database connection.</returns>
+        public static UnitOfWork CreateUnitOfWork(string databaseName = "")
+        {
+            return new UnitOfWork(CreateDbConnection(databaseName));
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="UnitOfWork"/> class with the specified isolation level and optional
+        /// database name.
+        /// </summary>
+        /// <remarks>Use this method to create a unit of work for managing database transactions. The
+        /// isolation level controls how the transaction interacts with other concurrent transactions.</remarks>
+        /// <param name="il">The isolation level to be used for the transaction. This determines the locking and row versioning behavior
+        /// during the transaction.</param>
+        /// <param name="databaseName">The name of the database to connect to. If not specified or empty, the default database connection is used.</param>
+        /// <returns>A new <see cref="UnitOfWork"/> instance configured with the specified isolation level and database
+        /// connection.</returns>
+        public static UnitOfWork CreateUnitOfWork(IsolationLevel il, string databaseName = "")
+        {
+            return new UnitOfWork(CreateDbConnection(databaseName), il);
+        }
+
+        /// <summary>
         /// Internally creates a new <see cref="DbConnection"/> using the given context.
         /// </summary>
         /// <param name="dbConnectionContext">The context containing connection details and provider factory.</param>
