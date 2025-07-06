@@ -116,24 +116,27 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         {
             return _orderByList == null ? string.Empty : "ORDER BY " + string.Join(", ", _orderByList);
         }
-        public TBuilder OrderBy(PropertyDefinition<TEntity> prop)
+        public TBuilder OrderBy(PropertyDefinition<TEntity> prop, bool desc = false)
         {
+            if(desc) return OrderByDescending(prop);
+
             _orderByList ??= new List<string>();
             _orderByList.Add(prop.Render(SqlAdapter));
             return (TBuilder)this;
         }
-        public TBuilder OrderBy(bool condition, PropertyDefinition<TEntity> prop)
+        public TBuilder OrderBy(bool condition, PropertyDefinition<TEntity> prop, bool desc = false)
         {
-            if (condition) return OrderBy(prop);
+            if (condition) return OrderBy(prop, desc);
+
             return (TBuilder)this;
         }
-        public TBuilder OrderBy<TProp>(Expression<Func<TEntity, TProp>> expression)
+        public TBuilder OrderBy<TProp>(Expression<Func<TEntity, TProp>> expression, bool desc = false)
         {
-            return OrderBy(new ExpressionPropertyDefinition<TEntity, TProp>(expression));
+            return OrderBy(new ExpressionPropertyDefinition<TEntity, TProp>(expression), desc);
         }
-        public TBuilder OrderBy<TProp>(bool condition, Expression<Func<TEntity, TProp>> expression)
+        public TBuilder OrderBy<TProp>(bool condition, Expression<Func<TEntity, TProp>> expression, bool desc = false)
         {
-            if (condition) return OrderBy(expression);
+            if (condition) return OrderBy(expression, desc);
             return (TBuilder)this;
         }
 

@@ -280,16 +280,19 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         {
             return _orderByList == null ? string.Empty : "ORDER BY " + string.Join(", ", _orderByList);
         }
-        public TBuilder OrderBy(string column)
+        public TBuilder OrderBy(string column, bool desc = false)
         {
+            if(desc) return OrderByDescending(column);
+
             _orderByList ??= new List<string>();
             var orderBy = Utils.IsValidSqlIdentifier(column) ? SqlAdapter.Quote(column) : column;
             _orderByList.Add(orderBy);
             return (TBuilder)this;
         }
-        public TBuilder OrderBy(bool condition, string column)
+        public TBuilder OrderBy(bool condition, string column, bool desc = false)
         {
-            if(condition) return OrderBy(column);
+            if (condition) return OrderBy(column, desc);
+
             return (TBuilder)this;
         }
         public TBuilder OrderByDescending(string column)
