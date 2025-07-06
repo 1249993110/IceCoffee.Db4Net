@@ -2,7 +2,7 @@
 
 ## Use unit of work
 
-### Synchronous
+### *Synchronous*
 ``` csharp
 using (var uow = Db.CreateUnitOfWork())
 {
@@ -12,7 +12,7 @@ using (var uow = Db.CreateUnitOfWork())
 }
 ```
 
-### Asynchronous
+### *Asynchronous*
 ``` csharp
 using (var uow = Db.CreateUnitOfWork())
 {
@@ -24,7 +24,7 @@ using (var uow = Db.CreateUnitOfWork())
 
 ## Use vanilla
 
-### Synchronous
+### *Synchronous*
 ``` csharp
 using (var dbConnection = Db.CreateDbConnection())
 {
@@ -47,7 +47,7 @@ using (var dbConnection = Db.CreateDbConnection())
 }
 ```
 
-### Asynchronous
+### *Asynchronous*
 ``` csharp
 using (var dbConnection = Db.CreateDbConnection())
 {
