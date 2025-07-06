@@ -877,6 +877,131 @@ namespace IceCoffee.Db4Net.Extensions
         }
         #endregion
 
+        #region SqlQueryCountBuilder
+        /// <summary>
+        /// Executes the SQL query represented by the <see cref="SqlQueryCountBuilder{TEntity}"/> instance and returns
+        /// the result as a <see langword="long"/>.
+        /// </summary>
+        /// <remarks>This method executes the SQL query defined in the <paramref name="sqlBuilder"/> and
+        /// retrieves the result using the provided database connection. If a transaction is specified, the query is
+        /// executed within the context of that transaction.</remarks>
+        /// <typeparam name="TEntity">The type of the entity associated with the SQL query.</typeparam>
+        /// <param name="sqlBuilder">The <see cref="SqlQueryCountBuilder{TEntity}"/> instance containing the SQL query to execute.</param>
+        /// <param name="transaction">An optional <see cref="IDbTransaction"/> to associate with the query execution. If <see langword="null"/>,
+        /// no transaction is used.</param>
+        /// <param name="commandTimeout">An optional timeout value, in seconds, for the command execution. If <see langword="null"/>, the default
+        /// timeout is used.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete. Defaults to <see
+        /// cref="CancellationToken.None"/>.</param>
+        /// <returns>The result of the SQL query execution as a <see langword="long"/>.</returns>
+        public static long Get<TEntity>(this SqlQueryCountBuilder<TEntity> sqlBuilder, IDbTransaction? transaction = null, int? commandTimeout = null, CancellationToken cancellationToken = default)
+        {
+            var sqlResult = sqlBuilder.SqlResult;
+            try
+            {
+                var commandDefinition = new CommandDefinition(sqlResult.Sql, sqlResult.GetParameters(), transaction, commandTimeout, CommandType.Text, CommandFlags.None, cancellationToken);
+                var dbConnection = transaction?.Connection ?? Db.CreateDbConnection(sqlBuilder.DatabaseName);
+                return dbConnection.ExecuteScalar<long>(commandDefinition);
+            }
+            catch (Exception ex)
+            {
+                throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
+            }
+        }
+
+        /// <summary>
+        /// Executes the SQL query represented by the <see cref="SqlQueryCountBuilder{TEntity}"/> instance and retrieves
+        /// the resulting count as a <see cref="long"/> value.
+        /// </summary>
+        /// <remarks>This method uses the SQL query and parameters defined in the <paramref
+        /// name="sqlBuilder"/> to execute a scalar query that returns a count. If a transaction is provided, the query
+        /// is executed within the context of that transaction; otherwise, a new database connection is
+        /// created.</remarks>
+        /// <typeparam name="TEntity">The type of the entity associated with the SQL query.</typeparam>
+        /// <param name="sqlBuilder">The <see cref="SqlQueryCountBuilder{TEntity}"/> instance containing the SQL query and its parameters.</param>
+        /// <param name="transaction">An optional <see cref="IDbTransaction"/> to associate with the query execution. If null, a new database
+        /// connection is created.</param>
+        /// <param name="commandTimeout">An optional timeout value, in seconds, for the command execution. If null, the default timeout is used.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
+        /// <returns>The count resulting from the execution of the SQL query as a <see cref="long"/> value.</returns>
+        public static async Task<long> GetAsync<TEntity>(this SqlQueryCountBuilder<TEntity> sqlBuilder, IDbTransaction? transaction = null, int? commandTimeout = null, CancellationToken cancellationToken = default)
+        {
+            var sqlResult = sqlBuilder.SqlResult;
+            try
+            {
+                var commandDefinition = new CommandDefinition(sqlResult.Sql, sqlResult.GetParameters(), transaction, commandTimeout, CommandType.Text, CommandFlags.None, cancellationToken);
+                var dbConnection = transaction?.Connection ?? Db.CreateDbConnection(sqlBuilder.DatabaseName);
+                return await dbConnection.ExecuteScalarAsync<long>(commandDefinition);
+            }
+            catch (Exception ex)
+            {
+                throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
+            }
+        }
+
+        /// <summary>
+        /// Executes the SQL query defined by the <paramref name="sqlBuilder"/> and retrieves a single scalar value of
+        /// type <typeparamref name="T"/>.
+        /// </summary>
+        /// <remarks>This method uses the SQL query defined by the <paramref name="sqlBuilder"/> to
+        /// execute a scalar query. If a <paramref name="transaction"/> is provided, the query will execute within the
+        /// scope of that transaction. Otherwise, a new database connection is created based on the <paramref
+        /// name="sqlBuilder"/> configuration.</remarks>
+        /// <typeparam name="T">The type of the scalar value to retrieve.</typeparam>
+        /// <param name="sqlBuilder">The SQL query builder that defines the query to execute.</param>
+        /// <param name="transaction">An optional database transaction to associate with the query execution. If <see langword="null"/>, the query
+        /// will execute without a transaction.</param>
+        /// <param name="commandTimeout">An optional timeout value, in seconds, for the command execution. If <see langword="null"/>, the default
+        /// timeout is used.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>The scalar value of type <typeparamref name="T"/> retrieved from the query execution, or <see
+        /// langword="null"/> if the query result is empty.</returns>
+        public static T? Get<T>(this ISqlQueryCountBuilder sqlBuilder, IDbTransaction? transaction = null, int? commandTimeout = null, CancellationToken cancellationToken = default)
+        {
+            var sqlResult = sqlBuilder.SqlResult;
+            try
+            {
+                var commandDefinition = new CommandDefinition(sqlResult.Sql, sqlResult.GetParameters(), transaction, commandTimeout, CommandType.Text, CommandFlags.None, cancellationToken);
+                var dbConnection = transaction?.Connection ?? Db.CreateDbConnection(sqlBuilder.DatabaseName);
+                return dbConnection.ExecuteScalar<T>(commandDefinition);
+            }
+            catch (Exception ex)
+            {
+                throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
+            }
+        }
+
+        /// <summary>
+        /// Executes the SQL query defined by the <paramref name="sqlBuilder"/> and retrieves a single value of type
+        /// <typeparamref name="T"/>.
+        /// </summary>
+        /// <remarks>This method uses the SQL query defined by the <paramref name="sqlBuilder"/> to
+        /// execute a scalar query. If <paramref name="transaction"/> is provided, the query is executed within the
+        /// scope of the transaction. Otherwise, a new database connection is created for the query execution.</remarks>
+        /// <typeparam name="T">The type of the value to retrieve from the query result.</typeparam>
+        /// <param name="sqlBuilder">The SQL query builder that defines the query to execute.</param>
+        /// <param name="transaction">An optional database transaction to associate with the query execution. If null, a new connection is
+        /// created.</param>
+        /// <param name="commandTimeout">An optional timeout value, in seconds, for the query execution. If null, the default timeout is used.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>A task representing the asynchronous operation. The task result contains the value of type <typeparamref
+        /// name="T"/> retrieved from the query. If no value is found, the result is <see langword="null"/>.</returns>
+        public static async Task<T?> GetAsync<T>(this ISqlQueryCountBuilder sqlBuilder, IDbTransaction? transaction = null, int? commandTimeout = null, CancellationToken cancellationToken = default)
+        {
+            var sqlResult = sqlBuilder.SqlResult;
+            try
+            {
+                var commandDefinition = new CommandDefinition(sqlResult.Sql, sqlResult.GetParameters(), transaction, commandTimeout, CommandType.Text, CommandFlags.None, cancellationToken);
+                var dbConnection = transaction?.Connection ?? Db.CreateDbConnection(sqlBuilder.DatabaseName);
+                return await dbConnection.ExecuteScalarAsync<T>(commandDefinition);
+            }
+            catch (Exception ex)
+            {
+                throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
+            }
+        }
+        #endregion
+
         #region SqlQueryStoredProcedureBuilder
         /// <summary>
         /// Executes the stored procedure query and returns a list of records of type T.

@@ -2,22 +2,18 @@
 
 namespace IceCoffee.Db4Net.Core.SqlBuilders
 {
-    public class SqlQueryExistsBuilder<TEntity> : FilterableSqlBuilder<SqlQueryExistsBuilder<TEntity>, TEntity>
+    public interface ISqlQueryCountBuilder : ISqlBuilder
     {
-        public SqlQueryExistsBuilder(ISqlAdapter sqlAdapter) : base(sqlAdapter)
+    }
+    public class SqlQueryCountBuilder<TEntity> : FilterableSqlBuilder<SqlQueryCountBuilder<TEntity>, TEntity>, ISqlQueryCountBuilder
+    {
+        public SqlQueryCountBuilder(ISqlAdapter sqlAdapter) : base(sqlAdapter)
         {
-        }
-
-        public SqlQueryExistsBuilder(ISqlAdapter sqlAdapter, object id) : this(sqlAdapter)
-        {
-            string idColumn = TryQuote(GetFieldNameByProperty(GetSingleUniqueKey()));
-            string name = ParameterBuilder.AddNamedParam(id);
-            WhereRaw($"{idColumn} = {name}");
         }
 
         protected override SqlResult GetSqlResult()
         {
-            string sql = SqlAdapter.ExistsCommand(GetFromTarget(), GetWhereConditions());
+            string sql = SqlAdapter.CountCommand(GetFromTarget(), GetWhereConditions());
             return new SqlResult()
             {
                 Sql = sql,
@@ -33,7 +29,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         {
             return _tableName ?? DefaultTableName;
         }
-        public SqlQueryExistsBuilder<TEntity> From(string table, string? alias = null)
+        public SqlQueryCountBuilder<TEntity> From(string table, string? alias = null)
         {
             _tableName = alias == null ? table : $"{TryQuote(table)} AS {TryQuote(alias)}";
             return this;

@@ -119,11 +119,9 @@ namespace IceCoffee.Db4Net
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
         /// <returns>A <see cref="SqlQueryBuilder"/> preconfigured to count.</returns>
-        public static SqlQueryBuilder QueryCount<TEntity>()
+        public static SqlQueryCountBuilder<TEntity> QueryCount<TEntity>()
         {
-            return new SqlQueryBuilder(CreateSqlAdapter(SqlBuilder<TEntity>.DefaultDatabaseName))
-                .From(SqlBuilder<TEntity>.DefaultTableName)
-                .SelectCount();
+            return new SqlQueryCountBuilder<TEntity>(CreateSqlAdapter(SqlBuilder<TEntity>.DefaultDatabaseName));
         }
 
         /// <summary>

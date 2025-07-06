@@ -33,7 +33,7 @@ namespace IceCoffee.Db4Net.UnitTest
         {
             await InsertTestData<Country>(5);
 
-            int count = await Db.QueryCount<Country>().GetSingleAsync<int>();
+            int count = await Db.QueryCount<Country>().GetAsync<int>();
 
             Assert.Equal(5, count);
         }
