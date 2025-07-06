@@ -816,6 +816,65 @@ namespace IceCoffee.Db4Net.Extensions
                 throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
             }
         }
+
+        /// <summary>
+        /// Executes the SQL query built by the <see cref="SqlQueryExistsBuilder{TEntity}"/> and returns a boolean
+        /// indicating whether the query result satisfies the condition.
+        /// </summary>
+        /// <typeparam name="TEntity"></typeparam>
+        /// <param name="sqlBuilder">The <see cref="SqlQueryExistsBuilder{TEntity}"/> instance containing the SQL query to execute.</param>
+        /// <param name="transaction">An optional <see cref="IDbTransaction"/> to associate with the query execution. If null, a new database
+        /// connection is created.</param>
+        /// <param name="buffered">A value indicating whether the query results should be buffered. If <see langword="true"/>, results are
+        /// fully loaded into memory; otherwise, results are streamed.</param>
+        /// <param name="commandTimeout">An optional timeout value, in seconds, for the command execution. If null, the default timeout is used.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
+        /// <returns><see langword="true"/> if the query result satisfies the condition; otherwise, <see langword="false"/>.</returns>
+        public static bool Get<TEntity>(this SqlQueryExistsBuilder<TEntity> sqlBuilder, IDbTransaction? transaction = null, bool buffered = true, int? commandTimeout = null, CancellationToken cancellationToken = default)
+        {
+            var sqlResult = sqlBuilder.SqlResult;
+            try
+            {
+                var commandDefinition = new CommandDefinition(sqlResult.Sql, sqlResult.GetParameters(), transaction, commandTimeout, CommandType.Text, buffered ? CommandFlags.Buffered : CommandFlags.None, cancellationToken);
+                var dbConnection = transaction?.Connection ?? Db.CreateDbConnection(sqlBuilder.DatabaseName);
+                return dbConnection.ExecuteScalar<bool>(commandDefinition);
+            }
+            catch (Exception ex)
+            {
+                throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
+            }
+        }
+
+        /// <summary>
+        /// Executes the SQL query built by the <see cref="SqlQueryExistsBuilder{TEntity}"/> and determines whether the
+        /// query returns a result.
+        /// </summary>
+        /// <remarks>This method uses the SQL query defined by the <paramref name="sqlBuilder"/> to check
+        /// for the existence of a result. If a transaction is provided, the query will execute within the context of
+        /// that transaction.</remarks>
+        /// <typeparam name="TEntity">The type of the entity associated with the SQL query.</typeparam>
+        /// <param name="sqlBuilder">The <see cref="SqlQueryExistsBuilder{TEntity}"/> instance used to construct the SQL query.</param>
+        /// <param name="transaction">An optional <see cref="IDbTransaction"/> to associate with the query execution. If null, the query will
+        /// execute without a transaction.</param>
+        /// <param name="buffered">Indicates whether the query results should be buffered. Set to <see langword="true"/> to enable buffering;
+        /// otherwise, <see langword="false"/>.</param>
+        /// <param name="commandTimeout">An optional timeout value, in seconds, for the command execution. If null, the default timeout is used.</param>
+        /// <param name="cancellationToken">A <see cref="CancellationToken"/> to observe while waiting for the task to complete.</param>
+        /// <returns><see langword="true"/> if the query returns a result; otherwise, <see langword="false"/>.</returns>
+        public static async Task<bool> GetAsync<TEntity>(this SqlQueryExistsBuilder<TEntity> sqlBuilder, IDbTransaction? transaction = null, bool buffered = true, int? commandTimeout = null, CancellationToken cancellationToken = default)
+        {
+            var sqlResult = sqlBuilder.SqlResult;
+            try
+            {
+                var commandDefinition = new CommandDefinition(sqlResult.Sql, sqlResult.GetParameters(), transaction, commandTimeout, CommandType.Text, buffered ? CommandFlags.Buffered : CommandFlags.None, cancellationToken);
+                var dbConnection = transaction?.Connection ?? Db.CreateDbConnection(sqlBuilder.DatabaseName);
+                return await dbConnection.ExecuteScalarAsync<bool>(commandDefinition);
+            }
+            catch (Exception ex)
+            {
+                throw SqlExecuteExceptionFactory.Create(ex, sqlResult.Sql, Db.Settings.SqlCaptureMode);
+            }
+        }
         #endregion
 
         #region SqlQueryStoredProcedureBuilder

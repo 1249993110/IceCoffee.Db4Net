@@ -123,7 +123,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
             }
             return unique;
         }
-        internal static string GetSingleUniqueKey()
+        protected static string GetSingleUniqueKey()
         {
             if (UniqueKeys.Count > 1)
             {

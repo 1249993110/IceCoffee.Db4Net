@@ -132,7 +132,7 @@ namespace IceCoffee.Db4Net
         /// </summary>
         /// <typeparam name="TEntity">The entity type.</typeparam>
         /// <returns>A <see cref="SqlQueryExistsBuilder{TEntity}"/> object.</returns>
-        public SqlQueryExistsBuilder QueryExists<TEntity>()
+        public SqlQueryExistsBuilder<TEntity> QueryExists<TEntity>()
         {
             return new SqlQueryExistsBuilder<TEntity>(CreateSqlAdapter()) { DatabaseName = DatabaseName };
         }
@@ -143,7 +143,7 @@ namespace IceCoffee.Db4Net
         /// <typeparam name="TEntity">The entity type.</typeparam>
         /// <param name="id">The record identifier.</param>
         /// <returns>A <see cref="SqlQueryExistsBuilder{TEntity}"/> object.</returns>
-        public SqlQueryExistsBuilder QueryExists<TEntity>(object id)
+        public SqlQueryExistsBuilder<TEntity> QueryExists<TEntity>(object id)
         {
             return new SqlQueryExistsBuilder<TEntity>(CreateSqlAdapter(), id) { DatabaseName = DatabaseName };
         }
