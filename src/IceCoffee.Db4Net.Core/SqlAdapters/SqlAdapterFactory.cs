@@ -2,9 +2,9 @@
 {
     public static class SqlAdapterFactory
     {
-        public static ISqlAdapter CreateAdapter(DatabaseProvider databaseType)
+        public static ISqlAdapter CreateAdapter(DatabaseProvider databaseProvider)
         {
-            switch (databaseType)
+            switch (databaseProvider)
             {
                 case DatabaseProvider.SQLServer:
                     return new SqlServerAdapter();
@@ -15,9 +15,10 @@
                 case DatabaseProvider.MySQL:
                     return new MySqlAdapter();
                 case DatabaseProvider.PostgreSQL:
+                    return new PostgreSqlAdapter();
                 case DatabaseProvider.Undefined:
                 default:
-                    throw new NotSupportedException($"Database type '{databaseType}' is not supported.");
+                    throw new NotSupportedException($"Database provider type '{databaseProvider}' is not supported.");
             }
         }
     }

@@ -15,7 +15,7 @@
 		<PackageProjectUrl>https://github.com/1249993110/IceCoffee.Db4Net</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<RepositoryUrl>https://github.com/1249993110/IceCoffee.Db4Net</RepositoryUrl>
-		<Version>1.0.7</Version>
+		<Version>1.0.9</Version>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net462'">

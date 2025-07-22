@@ -8,10 +8,10 @@ namespace IceCoffee.Db4Net
         {
             if (ShouldIncludeSql(mode))
             {
-                return new SqlExecuteException(null, inner, sql);
+                return new SqlExecuteException(inner, sql);
             }
 
-            return new SqlExecuteException(null, inner);
+            return new SqlExecuteException(inner);
         }
 
         private static bool ShouldIncludeSql(SqlCaptureMode mode)

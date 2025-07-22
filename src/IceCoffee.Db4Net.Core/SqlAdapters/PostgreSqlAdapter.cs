@@ -24,7 +24,7 @@
 
         public override string InsertReturningIdCommand()
         {
-            return " RETURNING id";
+            return "; SELECT LASTVAL()";
         }
 
         public override string InsertIgnoreCommand(string tableName, string columns, string parameters, string uniqueConstraint, string uniqueKeys)
