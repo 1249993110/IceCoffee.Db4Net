@@ -63,7 +63,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
             }
             else
             {
-                selection = string.Join(", ", _selectedProperties.Select(i => 
+                selection = string.Join(", ", _selectedProperties.Select(i =>
                 {
                     string propertyName = i.PropertyName;
                     string fieldName = GetFieldNameByProperty(propertyName);
@@ -71,7 +71,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
                     {
                         return SqlAdapter.Quote(fieldName);
                     }
-                    
+
                     return SqlAdapter.Quote(fieldName) + " AS " + SqlAdapter.Quote(propertyName);
                 }));
             }
@@ -118,7 +118,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         }
         public TBuilder OrderBy(PropertyDefinition<TEntity> prop, bool desc = false)
         {
-            if(desc) return OrderByDescending(prop);
+            if (desc) return OrderByDescending(prop);
 
             _orderByList ??= new List<string>();
             _orderByList.Add(prop.Render(SqlAdapter));

@@ -1,8 +1,6 @@
-﻿using IceCoffee.Db4Net.Core.Constants;
-using IceCoffee.Db4Net.Core.FilterDefinitions;
+﻿using IceCoffee.Db4Net.Core.FilterDefinitions;
 using IceCoffee.Db4Net.Core.SqlAdapters;
 using IceCoffee.Db4Net.Core.SqlFragmentDefinitions;
-using System.Data.Common;
 
 namespace IceCoffee.Db4Net.Core.SqlBuilders
 {
@@ -16,7 +14,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
     public abstract class SqlQueryBuilderBase<TBuilder> : FilterableSqlBuilder<TBuilder> where TBuilder : SqlQueryBuilderBase<TBuilder>
     {
         public SqlQueryBuilderBase(ISqlAdapter sqlAdapter) : base(sqlAdapter)
-        {            
+        {
         }
 
         protected override SqlResult GetSqlResult()
@@ -41,7 +39,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         private SqlFragmentDefinition? _from;
         protected string GetFromTarget()
         {
-            if(_from == null)
+            if (_from == null)
             {
                 throw new InvalidOperationException("From target is not defined.");
             }
@@ -116,7 +114,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         }
         public TBuilder Select(string column)
         {
-            if(BraceExpansionHelper.TryExpand(column, out var expandedColumns))
+            if (BraceExpansionHelper.TryExpand(column, out var expandedColumns))
             {
                 foreach (var expandedColumn in expandedColumns)
                 {
@@ -282,7 +280,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         }
         public TBuilder OrderBy(string column, bool desc = false)
         {
-            if(desc) return OrderByDescending(column);
+            if (desc) return OrderByDescending(column);
 
             _orderByList ??= new List<string>();
             var orderBy = Utils.IsValidSqlIdentifier(column) ? SqlAdapter.Quote(column) : column;

@@ -1,6 +1,5 @@
 ﻿using IceCoffee.Db4Net.Core;
 using IceCoffee.Db4Net.Core.SqlAdapters;
-using IceCoffee.Db4Net.Core.SqlBuilders;
 using System.Data;
 using System.Data.Common;
 

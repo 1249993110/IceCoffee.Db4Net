@@ -3,7 +3,7 @@
 ## Use unit of work
 
 ### *Synchronous*
-``` csharp
+```csharp
 using (var uow = Db.CreateUnitOfWork())
 {
     Db.Insert(entity).Execute(uow.DbTransaction);
@@ -13,7 +13,7 @@ using (var uow = Db.CreateUnitOfWork())
 ```
 
 ### *Asynchronous*
-``` csharp
+```csharp
 using (var uow = Db.CreateUnitOfWork())
 {
     await Db.Insert(entity).ExecuteAsync(uow.DbTransaction);
@@ -25,7 +25,7 @@ using (var uow = Db.CreateUnitOfWork())
 ## Use vanilla
 
 ### *Synchronous*
-``` csharp
+```csharp
 using (var dbConnection = Db.CreateDbConnection())
 {
     dbConnection.Open();
@@ -48,7 +48,7 @@ using (var dbConnection = Db.CreateDbConnection())
 ```
 
 ### *Asynchronous*
-``` csharp
+```csharp
 using (var dbConnection = Db.CreateDbConnection())
 {
     dbConnection.Open();

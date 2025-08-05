@@ -1,8 +1,6 @@
-﻿using AutoFixture;
-using IceCoffee.Db4Net.Extensions;
-using IceCoffee.Db4Net.UnitTest.Entities;
+﻿using IceCoffee.Db4Net.Extensions;
 
-namespace IceCoffee.Db4Net.UnitTest
+namespace IceCoffee.Db4Net.UnitTests
 {
     public class UpdateTests : TestFixtureBase
     {

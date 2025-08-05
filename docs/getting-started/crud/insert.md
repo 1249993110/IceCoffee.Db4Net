@@ -1,49 +1,49 @@
 # Insert
 
 ### Insert single
-``` csharp
+```csharp
 int affectedRows = Db.Insert(entity)
     .Execute();
 ```
 
 ### Insert multiple
-``` csharp
+```csharp
 int affectedRows = Db.InsertMany(entities)
     .Execute();
 ```
 
 ### Insert and get database generated id
-``` csharp
+```csharp
 int id = Db.InsertAndGetId(entity)
     .Execute<int>();
 ```
 
 ### Insert or ignore single
-``` csharp
+```csharp
 int affectedRows = Db.InsertOrIgnore(entity)
     .Execute();
 ```
 
 ### Insert or ignore multiple
-``` csharp
+```csharp
 int affectedRows = Db.InsertOrIgnoreMany(entities)
     .Execute();
 ```
 
 ### Insert or replace single
-``` csharp
+```csharp
 int affectedRows = Db.InsertOrReplace(entity)
     .Execute();
 ```
 
 ### Insert or replace multiple
-``` csharp
+```csharp
 int affectedRows = Db.InsertOrReplaceMany(entities)
     .Execute();
 ```
 
 ### Insert specific columns
-``` csharp
+```csharp
 int affectedRows = Db.Insert<EntityClass>()
     .Set(i => i.Id, entity.Id)
     .Set(i => i.Name, entity.Name)
@@ -51,7 +51,7 @@ int affectedRows = Db.Insert<EntityClass>()
 ```
 
 ### Insert single to specific table
-``` csharp
+```csharp
 int affectedRows = Db.Insert(entity)
     .To(table)
     .Execute();

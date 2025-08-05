@@ -1,38 +1,38 @@
 # Query
 
 ### Query by ID
-``` csharp
+```csharp
 var entity = Db.Query<EntityClass>(entityId)
     .GetSingleOrDefault();
 ```
 
 ### Query all
-``` csharp
+```csharp
 var entities = Db.Query<EntityClass>()
     .GetList();
 ```
 
 ### Query paged
-``` csharp
+```csharp
 var pagedResult = Db.QueryPaged<EntityClass>(1, 1)
     .OrderBy(i => i.Id)
     .GetPagedResult();
 ```
 
 ### Query count
-``` csharp
+```csharp
 int count = Db.QueryCount<EntityClass>()
     .GetSingle<int>();
 ```
 
 ### Query exists
-``` csharp
+```csharp
 bool exists = Db.QueryExists<EntityClass>(entityId)
     .Get();
 ```
 
 ### Query with where condition
-``` csharp
+```csharp
 var entities = Db.Query<EntityClass>()
     .WhereEq(i => i.Name, name)
     .WhereLt(i => i.Age, 18)
@@ -40,7 +40,7 @@ var entities = Db.Query<EntityClass>()
 ```
 
 ### Query select properties
-``` csharp
+```csharp
 var entities = Db.Query<EntityClass>()
     .Select(i => i.Id)
     .Select(i => i.Name)
@@ -48,14 +48,14 @@ var entities = Db.Query<EntityClass>()
 ```
 
 ### Query from specific table
-``` csharp
+```csharp
 var entities = Db.Query<EntityClass>()
     .From(table)
     .GetList();
 ```
 
 ### Query with where or condition
-``` csharp
+```csharp
 var filter = SqlBuilder<EntityClass>.Filter;
 var results = await Db.Query<EntityClass>()
     .WhereOr(filter.Eq(i => i.Id, first.Id), filter.Eq(i => i.Id, last.Id))

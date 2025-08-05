@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using IceCoffee.Db4Net.Core.SqlBuilders;
-using System.Collections;
 
 namespace IceCoffee.Db4Net
 {

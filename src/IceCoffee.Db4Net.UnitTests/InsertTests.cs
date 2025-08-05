@@ -1,8 +1,7 @@
 ﻿using AutoFixture;
 using IceCoffee.Db4Net.Extensions;
-using IceCoffee.Db4Net.UnitTest.Entities;
 
-namespace IceCoffee.Db4Net.UnitTest
+namespace IceCoffee.Db4Net.UnitTests
 {
     public class InsertTests : TestFixtureBase
     {
@@ -33,7 +32,7 @@ namespace IceCoffee.Db4Net.UnitTest
         {
             var fixture = new Fixture();
             var entity = fixture.Create<User>();
-            
+
             int id = await Db.InsertAndGetId(entity).ExecuteAsync<int>();
 
             Assert.True(id > 0, "Generated ID should be greater than 0.");

@@ -40,7 +40,7 @@
 
         public virtual string UpdateCommand(string tableName, string updateClause, string whereConditions)
         {
-            if(string.IsNullOrEmpty(whereConditions))
+            if (string.IsNullOrEmpty(whereConditions))
                 throw new ArgumentNullException(nameof(whereConditions));
 
             return $"UPDATE {tableName} SET {updateClause} {whereConditions}".TrimEnd();

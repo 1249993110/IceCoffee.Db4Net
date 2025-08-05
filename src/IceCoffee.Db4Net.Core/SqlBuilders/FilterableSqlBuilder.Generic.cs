@@ -103,7 +103,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         }
         public TBuilder WhereEq(bool condition, PropertyDefinition<TEntity> prop, object value)
         {
-            if(condition) WhereEq(prop, value); 
+            if (condition) WhereEq(prop, value);
             return (TBuilder)this;
         }
         public TBuilder WhereEq<TProp>(Expression<Func<TEntity, TProp>> prop, TProp value)

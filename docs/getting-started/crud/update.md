@@ -1,17 +1,17 @@
 # Update
 
 ### Update single
-``` csharp
+```csharp
 var affectedRows = Db.Update(entity).Execute();
 ```
 
 ### Update multiple
-``` csharp
+```csharp
 var affectedRows = Db.UpdateMany(entities).Execute();
 ```
 
 ### Update with where condition
-``` csharp
+```csharp
 var affectedRows = Db.Update(entity)
     .WhereIn(i => i.Id, idsToUpdate)
     .WhereEq(i => i.Name, name)
@@ -20,7 +20,7 @@ var affectedRows = Db.Update(entity)
 ```
 
 ### Update specific columns
-``` csharp
+```csharp
 int affectedRows = Db.Update<EntityClass>()
     .Set(i => i.Id, entity.Id)
     .Set(i => i.Name, entity.Name)
@@ -28,7 +28,7 @@ int affectedRows = Db.Update<EntityClass>()
 ```
 
 ### Update single to specific table
-``` csharp
+```csharp
 int affectedRows = Db.Update(entity)
     .To(table)
     .Execute();

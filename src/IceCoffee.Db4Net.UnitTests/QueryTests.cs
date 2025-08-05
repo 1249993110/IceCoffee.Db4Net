@@ -1,8 +1,7 @@
 ﻿using IceCoffee.Db4Net.Core.SqlBuilders;
 using IceCoffee.Db4Net.Extensions;
-using IceCoffee.Db4Net.UnitTest.Entities;
 
-namespace IceCoffee.Db4Net.UnitTest
+namespace IceCoffee.Db4Net.UnitTests
 {
     public class QueryTests : TestFixtureBase
     {
@@ -95,7 +94,7 @@ namespace IceCoffee.Db4Net.UnitTest
         public async Task Query_SelectProperties_ShouldReturnSelectedProperties()
         {
             var entity = await InsertTestData<Country>();
-            
+
             var result = await Db.Query<Country>()
                 .Select(i => i.Id)
                 .GetSingleAsync();

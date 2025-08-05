@@ -1108,4 +1108,4 @@ namespace IceCoffee.Db4Net.Extensions
         }
         #endregion
     }
-}                                                                                                                                                           
+}

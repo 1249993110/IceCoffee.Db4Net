@@ -1,7 +1,4 @@
-﻿using IceCoffee.Db4Net.Core.Constants;
-using IceCoffee.Db4Net.Core.PropertyDefinitions;
-using IceCoffee.Db4Net.Core.SqlBuilders;
-using System.Linq.Expressions;
+﻿using IceCoffee.Db4Net.Core.SqlBuilders;
 
 namespace IceCoffee.Db4Net.Core.FilterDefinitions
 {

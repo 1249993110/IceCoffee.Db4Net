@@ -1,8 +1,7 @@
 ﻿using AutoFixture;
 using IceCoffee.Db4Net.Extensions;
-using IceCoffee.Db4Net.UnitTest.Entities;
 
-namespace IceCoffee.Db4Net.UnitTest
+namespace IceCoffee.Db4Net.UnitTests
 {
     public class TransactionTests : TestFixtureBase
     {
@@ -30,7 +29,7 @@ namespace IceCoffee.Db4Net.UnitTest
                     }
                 }
             }
-            
+
             var insertedEntity = Db.Query<Country>(entity.Id).GetSingleOrDefault();
 
             Assert.Null(insertedEntity);

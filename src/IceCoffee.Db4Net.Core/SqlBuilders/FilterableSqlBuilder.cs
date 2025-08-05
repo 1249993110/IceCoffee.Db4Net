@@ -1,6 +1,5 @@
 ﻿using IceCoffee.Db4Net.Core.FilterDefinitions;
 using IceCoffee.Db4Net.Core.SqlAdapters;
-using System;
 
 namespace IceCoffee.Db4Net.Core.SqlBuilders
 {
@@ -29,7 +28,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         }
         public TBuilder Where(bool condition, FilterDefinition filterDefinition)
         {
-            if (condition) Where(filterDefinition); 
+            if (condition) Where(filterDefinition);
             return (TBuilder)this;
         }
         public TBuilder Where(FormattableString formattableString)

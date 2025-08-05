@@ -18,11 +18,11 @@ namespace IceCoffee.Db4Net.Core.FilterDefinitions
         {
             string subQuerySql;
 
-            if(_subQuery is FormattableString formattableString)
+            if (_subQuery is FormattableString formattableString)
             {
                 subQuerySql = Utils.ParseFormattableString(formattableString, parameterBuilder.AddNamedParam);
             }
-            else if(_subQuery is SqlQueryBuilder sqlBuilder)
+            else if (_subQuery is SqlQueryBuilder sqlBuilder)
             {
                 var sqlResult = sqlBuilder.SqlResult;
                 subQuerySql = sqlResult.Sql;

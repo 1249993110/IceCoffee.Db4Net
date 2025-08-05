@@ -90,13 +90,13 @@ namespace IceCoffee.Db4Net.Core
 
         public void AddDynamicParams(object? param)
         {
-            if(param == null)
+            if (param == null)
             {
                 return;
             }
             _dynamicParameters ??= new List<object?>();
 
-            if(param is IEnumerable objects)
+            if (param is IEnumerable objects)
             {
                 foreach (var item in objects)
                 {

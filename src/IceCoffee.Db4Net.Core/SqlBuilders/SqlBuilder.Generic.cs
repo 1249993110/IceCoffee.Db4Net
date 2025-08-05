@@ -35,7 +35,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
         {
             var entityType = typeof(TEntity);
 
-            if(typeof(IEnumerable).IsAssignableFrom(entityType))
+            if (typeof(IEnumerable).IsAssignableFrom(entityType))
             {
                 throw new InvalidOperationException($"The type '{entityType.Name}' is not a valid entity type for SqlBuilder. It should not be a collection or array type.");
             }
@@ -60,7 +60,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
 
             var tableAttribute = entityType.GetCustomAttribute<TableAttribute>(true);
             DefaultTableName = tableAttribute?.Name ?? entityType.Name;
-            
+
             var properties = entityType.GetProperties(BindingFlags.Instance | BindingFlags.Public)
                 .Where(p => p.CanWrite && p.GetCustomAttribute<NotMappedAttribute>(true) == null);
 
@@ -142,7 +142,7 @@ namespace IceCoffee.Db4Net.Core.SqlBuilders
                 DefaultSelection = string.Join(", ", _propsTo.Select.Select(propertyName =>
                 {
                     string fieldName = _propToFieldMap[propertyName];
-                    if(propertyName == fieldName)
+                    if (propertyName == fieldName)
                     {
                         return TryQuote(fieldName);
                     }

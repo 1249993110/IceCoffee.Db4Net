@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using IceCoffee.Db4Net.Core.SqlAdapters;
 using IceCoffee.Db4Net.Core.SqlBuilders;
-using System.Data;
 using System.Data.Common;
 
 namespace IceCoffee.Db4Net
@@ -104,7 +103,7 @@ namespace IceCoffee.Db4Net
         /// <returns>A <see cref="SqlQueryPagedBuilder"/> object.</returns>
         public SqlQueryPagedBuilder QueryPaged()
         {
-            return new SqlQueryPagedBuilder(CreateSqlAdapter()) { DatabaseName = DatabaseName };    ;
+            return new SqlQueryPagedBuilder(CreateSqlAdapter()) { DatabaseName = DatabaseName }; ;
         }
 
         /// <summary>
@@ -360,7 +359,7 @@ namespace IceCoffee.Db4Net
         /// <returns>A <see cref="SqlDeleteEntityBuilder{TEntity}"/> instance.</returns>
         public SqlDeleteEntityBuilder<TEntity> Delete<TEntity>(TEntity entity)
         {
-            return new SqlDeleteEntityBuilder<TEntity>(CreateSqlAdapter(), entity) { DatabaseName = DatabaseName }  ;
+            return new SqlDeleteEntityBuilder<TEntity>(CreateSqlAdapter(), entity) { DatabaseName = DatabaseName };
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿using IceCoffee.Db4Net.Core.OptionalAttributes;
 
-namespace IceCoffee.Db4Net.UnitTest.Entities
+namespace IceCoffee.Db4Net.UnitTests.Entities
 {
     [Table("foo")]
     public class Foo

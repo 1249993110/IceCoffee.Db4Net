@@ -4,7 +4,7 @@ using IceCoffee.Db4Net.Extensions;
 using Microsoft.Data.Sqlite;
 using System.Data;
 
-namespace IceCoffee.Db4Net.UnitTest
+namespace IceCoffee.Db4Net.UnitTests
 {
     public abstract class TestFixtureBase : IDisposable
     {

@@ -45,7 +45,7 @@ Install-Package SqlSugarCore.Dm
 ## Usage
 
 ### 1. Introducing namespaces
-``` csharp
+```csharp
 using IceCoffee.Db4Net;
 using IceCoffee.Db4Net.OptionalAttributes;
 using IceCoffee.Db4Net.Extensions;
@@ -53,13 +53,13 @@ using IceCoffee.Db4Net.Core;
 ```
 
 ### 2. Register database connection
-``` csharp
+```csharp
 string connectionString = "Data Source=InMemorySample;Mode=Memory;Cache=Shared";
 Db.Register(DatabaseProvider.SQLite, connectionString);
 ```
 
 ### 3. Define entity
-``` csharp
+```csharp
 [Table("foo")]
 public class Foo
 {
@@ -73,43 +73,43 @@ public class Foo
 ```
 
 ### 4. Insert an entity
-``` csharp
+```csharp
 var foo = new Foo { Name = "Tom" };
 Db.Insert(foo).Execute();
 ```
 
 The generated SQL will be:
-``` sql
+```sql
 INSERT INTO [foo] ([Name], [Age], [created_at]) VALUES (@Name, @Age, @CreatedAt)
 ```
 
 ### 5. Get an entity by ID
-``` csharp
+```csharp
 var foo = Db.Query<Foo>(1).GetSingleOrDefault();
 ```
 
 The generated SQL will be:
-``` sql
+```sql
 SELECT [Id], [Name], [Age], [created_at] AS [CreatedAt] FROM [foo] WHERE [Id] = @p1
 ```
 
 ### 6. Update an entity
-``` csharp
+```csharp
 var foo = new Foo { Id = 0, Name = "James" };
 Db.Update(foo).Execute();
 ```
 
 The generated SQL will be:
-``` sql
+```sql
 INSERT INTO [foo] ([Name], [Age], [created_at]) VALUES (@Name, @Age, @CreatedAt)
 ```
 
 ### 7. Delete an entity by ID
-``` csharp
+```csharp
 Db.Delete<Foo>(0).Execute();
 ```
 
 The generated SQL will be:
-``` sql
+```sql
 DELETE FROM [foo] WHERE [Id] = @p1
 ```

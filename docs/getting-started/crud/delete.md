@@ -1,21 +1,21 @@
 # Delete
 
 ### Delete single
-``` csharp
+```csharp
 var affectedRows = Db.Delete<EntityClass>(entityId).Execute();
 // Or
 var affectedRows = Db.Delete(entity).Execute();
 ```
 
 ### Delete multiple
-``` csharp
+```csharp
 var affectedRows = Db.DeleteMany<EntityClass>(entityIds).Execute();
 // Or
 var affectedRows = Db.DeleteMany(entities).Execute();
 ```
 
 ### Update with where condition
-``` csharp
+```csharp
 var affectedRows = Db.Delete<EntityClass>()
     .WhereIn(i => i.Id, idsToUpdate)
     .WhereEq(i => i.Name, name)
