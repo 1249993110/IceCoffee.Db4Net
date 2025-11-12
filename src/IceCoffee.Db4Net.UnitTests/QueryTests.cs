@@ -1,5 +1,6 @@
 ﻿using IceCoffee.Db4Net.Core.SqlBuilders;
 using IceCoffee.Db4Net.Extensions;
+using IceCoffee.Db4Net.UnitTests.Entities;
 
 namespace IceCoffee.Db4Net.UnitTests
 {

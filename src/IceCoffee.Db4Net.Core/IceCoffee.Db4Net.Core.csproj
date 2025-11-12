@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net8.0;net462</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0;net462</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<LangVersion>11.0</LangVersion>
@@ -15,7 +15,7 @@
 		<PackageProjectUrl>https://github.com/1249993110/IceCoffee.Db4Net</PackageProjectUrl>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 		<RepositoryUrl>https://github.com/1249993110/IceCoffee.Db4Net</RepositoryUrl>
-		<Version>1.0.8</Version>
+		<Version>1.1.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'net462'">
